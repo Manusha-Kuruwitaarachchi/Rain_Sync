@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mainbackground"
+    android:gravity="center">
+
+    <EditText
+        android:id="@+id/edtCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="200dp"
+        android:background="@drawable/plain_txt"
+        android:backgroundTint="#FFFFFF"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Search the city"
+        android:inputType="text"
+        android:padding="14dp"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edtCity"
+        android:layout_centerInParent="true">
+
+
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/txt_date"
+        android:layout_width="400dp"
+        android:layout_height="66dp"
+        android:layout_marginBottom="60dp"
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp" />
+
+    <TextView
+        android:id="@+id/lbllocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        android:textSize="33sp" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edtCity"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="45dp"
+        android:alignmentMode="alignMargins"
+        android:columnCount="2"
+        android:columnOrderPreserved="false"
+        android:rowCount="2">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view_pressure"
+            android:layout_width="190dp"
+            android:layout_height="115dp"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_margin="8dp"
+            android:src="@drawable/background2"
+            app:cardBackgroundColor="#3D3F45"
+            app:cardCornerRadius="6dp"
+            app:elevation="4dp">
+
+            <TextView
+                android:id="@+id/lblPressure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-black"
+                android:gravity="center"
+                android:text="Pressure"
+                android:textColor="@color/white"
+                android:textSize="23sp"
+                app:autoSizeTextType="none" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view_weather"
+            android:layout_width="190dp"
+            android:layout_height="115dp"
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="#3D3F45"
+            app:cardCornerRadius="6dp"
+            app:elevation="4dp">
+
+            <TextView
+                android:id="@+id/windspeed_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-black"
+                android:text="Weather"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view_temp"
+            android:layout_width="190dp"
+            android:layout_height="115dp"
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="#3D3F45"
+            app:cardCornerRadius="6dp"
+            app:elevation="4dp">
+
+            <TextView
+                android:id="@+id/lblTemperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Max Temperature"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view_humidity"
+            android:layout_width="190dp"
+            android:layout_height="115dp"
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="#3D3F45"
+            app:cardCornerRadius="6dp"
+            app:elevation="4dp">
+
+            <TextView
+                android:id="@+id/lblHumidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Humidity"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+        </androidx.cardview.widget.CardView>
+
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/txt_celcius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="250dp"
+        android:text="TextView1"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/lblDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/txt_celcius"
+        android:layout_marginTop="16dp"
+        android:text="TextView2"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/search_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edtCity"
+        android:layout_marginTop="2dp"
+        android:text="Button" />
+
+
+</RelativeLayout>
