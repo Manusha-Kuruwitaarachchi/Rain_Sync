@@ -1,8 +1,12 @@
+// WeatherDashBoard.kt
+
 package com.avinn.rainsync
 
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -65,8 +69,20 @@ class WeatherDashBoard : AppCompatActivity() {
         // Display the formatted date and time
         txtDataAndTime.text = formattedDate
 
-        // Get the current location, temperature, weather description, and weather icon
+        // Get the current location, temperature, weather description, and weather icon for the current location
         getCurrentLocation()
+
+        // Set OnClickListener for the search button
+        val btnSearch = findViewById<Button>(R.id.btn_search)
+        btnSearch.setOnClickListener {
+            val cityName = findViewById<EditText>(R.id.search_bar).text.toString()
+            if (cityName.isNotEmpty()) {
+                // Call a method to get weather information for the searched city
+                getWeatherForCity(cityName)
+            } else {
+                Toast.makeText(this, "Please enter a city name", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun getCurrentLocation() {
@@ -139,6 +155,64 @@ class WeatherDashBoard : AppCompatActivity() {
                     txtHumidityDetails.text = "$humidity%"
                     txtTempDetails.text = "$temperature°C"
                     txtWeatherDetails.text = "${windSpeed} m/s" // Updated line for wind speed
+
+                    // Display the weather icon
+                    displayWeatherIcon(iconCode)
+                } catch (e: Exception) {
+                    Toast.makeText(
+                        this,
+                        "Error parsing weather information",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    e.printStackTrace()
+                }
+            },
+            { error ->
+                Toast.makeText(
+                    this,
+                    "Error loading weather information",
+                    Toast.LENGTH_SHORT
+                ).show()
+                error.printStackTrace()
+            }
+        )
+        Volley.newRequestQueue(this).add(request)
+    }
+
+    private fun getWeatherForCity(cityName: String) {
+        val apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$apiKey"
+        val request = JsonObjectRequest(
+            Request.Method.GET, apiUrl, null,
+            { data ->
+                // Handle the JSON response for the searched city
+                try {
+                    // Extract weather information and update UI
+                    val temperature = data.getJSONObject("main").getDouble("temp")
+                    val pressure = data.getJSONObject("main").getDouble("pressure")
+                    val humidity = data.getJSONObject("main").getDouble("humidity")
+                    val windSpeed = data.getJSONObject("wind").getDouble("speed")
+                    val weatherArray = data.getJSONArray("weather")
+                    val description = if (weatherArray.length() > 0) {
+                        weatherArray.getJSONObject(0).getString("description")
+                    } else {
+                        ""
+                    }
+                    val iconCode = if (weatherArray.length() > 0) {
+                        weatherArray.getJSONObject(0).getString("icon")
+                    } else {
+                        ""
+                    }
+
+                    // Display the location name, temperature, and weather description
+                    txtCountry.text = cityName
+                    txtCelcius2.text = "${temperature}°C"
+                    txtDescription.text = description
+
+                    // Display the additional weather details
+                    txtPressureDetails.text = "$pressure hPa"
+                    txtHumidityDetails.text = "$humidity%"
+                    txtTempDetails.text = "$temperature°C"
+                    txtWeatherDetails.text = "${windSpeed} m/s"
 
                     // Display the weather icon
                     displayWeatherIcon(iconCode)
