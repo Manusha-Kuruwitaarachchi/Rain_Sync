@@ -3,7 +3,10 @@
 package com.avinn.rainsync
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -22,6 +25,7 @@ import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import java.util.TimeZone
 
 class WeatherDashBoard : AppCompatActivity() {
 
@@ -62,12 +66,7 @@ class WeatherDashBoard : AppCompatActivity() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         // Get the current date and time
-        val calendar = Calendar.getInstance()
-        val sdf = SimpleDateFormat("MMMM dd (EEE) | hh:mm a", Locale.getDefault())
-        val formattedDate = sdf.format(calendar.time)
-
-        // Display the formatted date and time
-        txtDataAndTime.text = formattedDate
+        getCurrentDateTime()
 
         // Get the current location, temperature, weather description, and weather icon for the current location
         getCurrentLocation()
@@ -83,6 +82,16 @@ class WeatherDashBoard : AppCompatActivity() {
                 Toast.makeText(this, "Please enter a city name", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun getCurrentDateTime() {
+        // Get the current date and time using the device's time zone
+        val calendar = Calendar.getInstance()
+        val sdf = SimpleDateFormat("MMMM dd (EEE) | hh:mm a", Locale.getDefault())
+        val formattedDate = sdf.format(calendar.time)
+
+        // Display the formatted date and time
+        txtDataAndTime.text = formattedDate
     }
 
     private fun getCurrentLocation() {
@@ -132,7 +141,7 @@ class WeatherDashBoard : AppCompatActivity() {
                     val temperature = data.getJSONObject("main").getDouble("temp")
                     val pressure = data.getJSONObject("main").getDouble("pressure")
                     val humidity = data.getJSONObject("main").getDouble("humidity")
-                    val windSpeed = data.getJSONObject("wind").getDouble("speed") // New line for wind speed
+                    val windSpeed = data.getJSONObject("wind").getDouble("speed")
                     val weatherArray = data.getJSONArray("weather")
                     val description = if (weatherArray.length() > 0) {
                         weatherArray.getJSONObject(0).getString("description")
@@ -148,13 +157,13 @@ class WeatherDashBoard : AppCompatActivity() {
                     // Display the location name, temperature, and weather description
                     txtCountry.text = cityName
                     txtCelcius2.text = "${temperature}°C"
-                    txtDescription.text = description
+                    txtDescription.text = description.toUpperCase()
 
                     // Display the additional weather details
                     txtPressureDetails.text = "$pressure hPa"
                     txtHumidityDetails.text = "$humidity%"
                     txtTempDetails.text = "$temperature°C"
-                    txtWeatherDetails.text = "${windSpeed} m/s" // Updated line for wind speed
+                    txtWeatherDetails.text = "${windSpeed} m/s"
 
                     // Display the weather icon
                     displayWeatherIcon(iconCode)
@@ -206,7 +215,7 @@ class WeatherDashBoard : AppCompatActivity() {
                     // Display the location name, temperature, and weather description
                     txtCountry.text = cityName
                     txtCelcius2.text = "${temperature}°C"
-                    txtDescription.text = description
+                    txtDescription.text = description.toUpperCase()
 
                     // Display the additional weather details
                     txtPressureDetails.text = "$pressure hPa"
