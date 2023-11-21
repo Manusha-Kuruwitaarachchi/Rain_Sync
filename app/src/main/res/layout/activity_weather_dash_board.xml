@@ -53,25 +53,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/txt_country" />
 
             <!-- Search Button -->
-            <Button
-                android:id="@+id/btn_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/search_button"
-                android:text="Search"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/search_bar" />
+
 
             <ImageView
                 android:id="@+id/img_weatherImg"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="190dp"
+                android:layout_height="200dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 app:srcCompat="@drawable/cloudy_sunny" />
@@ -80,7 +67,7 @@
                 android:id="@+id/txt_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="0dp"
                 android:fontFamily="@font/aleo"
                 android:text="Description"
                 android:textAlignment="center"
@@ -127,7 +114,6 @@
                     android:layout_row="0"
                     android:layout_column="0"
                     android:layout_margin="8dp"
-                    android:src="@drawable/background2"
                     app:cardBackgroundColor="#3D3F45"
                     app:cardCornerRadius="6dp"
                     app:elevation="4dp">

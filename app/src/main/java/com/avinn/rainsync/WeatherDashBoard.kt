@@ -3,11 +3,13 @@
 package com.avinn.rainsync
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.view.MotionEvent
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -40,12 +42,13 @@ class WeatherDashBoard : AppCompatActivity() {
     private lateinit var txtWeatherDetails: TextView
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
-    private val apiKey = "bf4f8467b9b37f90499e45cac3904b60"
+    private val apiKey = "b5c41ec82486a116b3f30ba1f5172795"
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1001
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_weather_dash_board)
@@ -72,15 +75,32 @@ class WeatherDashBoard : AppCompatActivity() {
         getCurrentLocation()
 
         // Set OnClickListener for the search button
-        val btnSearch = findViewById<Button>(R.id.btn_search)
-        btnSearch.setOnClickListener {
-            val cityName = findViewById<EditText>(R.id.search_bar).text.toString()
-            if (cityName.isNotEmpty()) {
-                // Call a method to get weather information for the searched city
-                getWeatherForCity(cityName)
-            } else {
-                Toast.makeText(this, "Please enter a city name", Toast.LENGTH_SHORT).show()
+
+
+        // Add the new code for handling the drawableRight click
+        val searchBar = findViewById<EditText>(R.id.search_bar)
+        searchBar.setOnTouchListener { _, event ->
+            val DRAWABLE_RIGHT = 2
+
+            if (event.action == MotionEvent.ACTION_UP) {
+                if (event.rawX >= (searchBar.right - searchBar.compoundDrawables[DRAWABLE_RIGHT].bounds.width())) {
+                    // The drawableRight icon was clicked
+                    onSearchButtonClick()
+                    return@setOnTouchListener true
+                }
             }
+            false
+        }
+    }
+
+    private fun onSearchButtonClick() {
+        // Place the code you want to execute when the search button or drawableRight is clicked
+        val cityName = findViewById<EditText>(R.id.search_bar).text.toString()
+        if (cityName.isNotEmpty()) {
+            // Call a method to get weather information for the searched city
+            getWeatherForCity(cityName)
+        } else {
+            Toast.makeText(this, "Please enter a city name", Toast.LENGTH_SHORT).show()
         }
     }
 
