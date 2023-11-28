@@ -93,6 +93,18 @@
                 android:textColor="@color/white"
                 android:textSize="19sp" />
 
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:backgroundTint="#4CAF50"
+                android:text="Forecast Weather"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -115,7 +127,7 @@
                     android:layout_column="0"
                     android:layout_margin="8dp"
                     app:cardBackgroundColor="#3D3F45"
-                    app:cardCornerRadius="6dp"
+                    app:cardCornerRadius="8dp"
                     app:elevation="4dp">
 
                     <TextView
@@ -163,7 +175,7 @@
                     android:layout_height="155dp"
                     android:layout_margin="8dp"
                     app:cardBackgroundColor="#3D3F45"
-                    app:cardCornerRadius="6dp"
+                    app:cardCornerRadius="8dp"
                     app:elevation="4dp">
 
                     <TextView
@@ -211,7 +223,7 @@
                     android:layout_height="155dp"
                     android:layout_margin="8dp"
                     app:cardBackgroundColor="#3D3F45"
-                    app:cardCornerRadius="6dp"
+                    app:cardCornerRadius="8dp"
                     app:elevation="4dp">
 
                     <TextView
@@ -259,7 +271,7 @@
                     android:layout_height="155dp"
                     android:layout_margin="8dp"
                     app:cardBackgroundColor="#3D3F45"
-                    app:cardCornerRadius="6dp"
+                    app:cardCornerRadius="8dp"
                     app:elevation="4dp">
 
                     <TextView

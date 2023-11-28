@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:fillViewport="true"
+    tools:context=".ForeCastDashBoard">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Search Bar -->
+        <EditText
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/search_bar"
+            android:drawableRight="@drawable/search"
+            android:gravity="center"
+            android:hint="Enter city name "
+            android:padding="12dp"
+            android:textColor="#3A3A3A"
+            android:textColorHint="@color/black"
+            android:textSize="18sp"
+            tools:ignore="MissingConstraints" />
+        <!-- Text Location -->
+        <TextView
+            android:id="@+id/txt_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/aleo_bold"
+            android:gravity="center"
+            android:text="Location"
+            android:textColor="#FFFFFF"
+            android:textSize="34sp"
+            app:layout_constraintTop_toBottomOf="@+id/search_bar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Rectangle 1 -->
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/rectangle1"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/txt_location"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:cardBackgroundColor="#3D3F45">
+
+            <!-- Content Inside Rectangle 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="10sp"
+                    android:src="@drawable/air"
+                    android:layout_gravity="center_vertical"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txtDate1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="30sp"
+                        android:fontFamily="@font/aleo_bold"
+                        android:gravity="center"
+                        android:text="Text 1"
+                        android:textColor="#FFEB3B"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/textDescription1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10sp"
+                        android:fontFamily="@font/aleo_bold"
+                        android:gravity="center"
+                        android:text="Text 1"
+                        android:textColor="#FFEB3B"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <!-- Add more TextViews as needed -->
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Rectangle 2 -->
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/rectangle2"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/rectangle1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            app:cardBackgroundColor="#3D3F45"
+            android:layout_marginEnd="16dp">
+
+            <!-- Content Inside Rectangle 2 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="10sp"
+                    android:src="@drawable/air"
+                    android:layout_gravity="center_vertical" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textDate2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_marginTop="30sp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/aleo_bold"
+                        android:gravity="center"
+                        android:text="Text 2"
+                        android:textColor="#FFEB3B"
+                        android:textSize="16sp"
+                        tools:ignore="Suspicious0dp" />
+
+                    <TextView
+                        android:id="@+id/textDescription2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10sp"
+                        android:fontFamily="@font/aleo_bold"
+                        android:gravity="center"
+                        android:text="Text 1"
+                        android:textColor="#FFEB3B"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+        <!-- Rectangle 3 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/rectangle3"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/rectangle2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:cardBackgroundColor="#3D3F45">
+
+            <!-- Content Inside Rectangle 3 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="10sp"
+                    android:src="@drawable/air"
+                    android:layout_gravity="center_vertical" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textDate3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_marginTop="30sp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/aleo_bold"
+                        android:gravity="center"
+                        android:text="Text 2"
+                        android:textColor="#FFEB3B"
+                        android:textSize="16sp"
+                        tools:ignore="Suspicious0dp" />
+
+                    <TextView
+                        android:id="@+id/textDescription3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10sp"
+                        android:fontFamily="@font/aleo_bold"
+                        android:gravity="center"
+                        android:text="Text 1"
+                        android:textColor="#FFEB3B"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Rectangle 4 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/rectangle4"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/rectangle3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:cardBackgroundColor="#3D3F45">
+
+            <!-- Content Inside Rectangle 4 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                >
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="10sp"
+                    android:src="@drawable/air"
+                    android:layout_gravity="center_vertical"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textDate4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_marginTop="30sp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/aleo_bold"
+                        android:gravity="center"
+                        android:text="Text 2"
+                        android:textColor="#FFEB3B"
+                        android:textSize="16sp"
+                        tools:ignore="Suspicious0dp" />
+
+                    <TextView
+                        android:id="@+id/textDescription4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10sp"
+                        android:fontFamily="@font/aleo_bold"
+                        android:gravity="center"
+                        android:text="Text 1"
+                        android:textColor="#FFEB3B"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

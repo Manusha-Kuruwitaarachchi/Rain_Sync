@@ -5,11 +5,13 @@ package com.avinn.rainsync
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.view.MotionEvent
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -42,17 +44,27 @@ class WeatherDashBoard : AppCompatActivity() {
     private lateinit var txtWeatherDetails: TextView
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
-    private val apiKey = "b5c41ec82486a116b3f30ba1f5172795"
+    private val apiKey = "a54d40df08aad93219fb571a3baab8db"
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1001
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint("ClickableViewAccessibility", "MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_weather_dash_board)
 
+        val button: Button = findViewById(R.id.button)
+
+        // Set a click listener for the button
+        button.setOnClickListener(View.OnClickListener {
+            // Create an Intent to navigate to ForeCastDashBoard
+            val intent = Intent(this@WeatherDashBoard, ForeCastDashBoard::class.java)
+
+            // Start the ForeCastDashBoard activity
+            startActivity(intent)
+        })
         txtDataAndTime = findViewById(R.id.txt_dataAndTime)
         txtCountry = findViewById(R.id.txt_country)
         txtCelcius2 = findViewById(R.id.txt_celcius2)
