@@ -56,8 +56,6 @@ class ForeCastDashBoard : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fore_cast_dash_board)
 
-
-
         txtLocation = findViewById(R.id.txt_location)
         txtDate1 = findViewById(R.id.txtDate1)
         textDescription1 = findViewById(R.id.textDescription1)

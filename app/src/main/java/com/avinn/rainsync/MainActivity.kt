@@ -10,9 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-
-
-
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
