@@ -98,7 +98,6 @@ class ForeCastDashBoard : AppCompatActivity() {
         getCurrentLocation()
     }
 
-
     private fun getCurrentLocation() {
         if (ContextCompat.checkSelfPermission(
                 this,
