@@ -51,7 +51,7 @@ class ForeCastDashBoard : AppCompatActivity() {
 
     private var isCurrentLocationForecast: Boolean = true
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint("ClickableViewAccessibility", "MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fore_cast_dash_board)
@@ -64,21 +64,25 @@ class ForeCastDashBoard : AppCompatActivity() {
         textDescription2 = findViewById(R.id.textDescription2)
         imageView2 = findViewById(R.id.imageView2)
         txtDate3 = findViewById(R.id.textDate3)
-
         textDescription3 = findViewById(R.id.textDescription3)
         imageView3 = findViewById(R.id.imageView3)
         txtDate4 = findViewById(R.id.textDate4)
         textDescription4 = findViewById(R.id.textDescription4)
         imageView4 = findViewById(R.id.imageView4)
 
+        val backButton = findViewById<ImageView>(R.id.backButton)
+
+        backButton.setOnClickListener {
+            navigateBackToWeatherDashboard()
+        }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         searchBar = findViewById(R.id.search_bar)
 
         searchBar.setOnTouchListener { _, event ->
-            val DRAWABLE_RIGHT = 2
+            val DrawableRight = 2
 
             if (event.action == MotionEvent.ACTION_UP) {
-                if (event.rawX >= (searchBar.right - searchBar.compoundDrawables[DRAWABLE_RIGHT].bounds.width())) {
+                if (event.rawX >= (searchBar.right - searchBar.compoundDrawables[DrawableRight].bounds.width())) {
                     onSearchButtonClick()
                     return@setOnTouchListener true
                 }
@@ -99,6 +103,10 @@ class ForeCastDashBoard : AppCompatActivity() {
         getCurrentLocation()
     }
 
+    private fun navigateBackToWeatherDashboard() {
+        val intent = Intent(this, WeatherDashBoard::class.java)
+        startActivity(intent)
+    }
     private fun getCurrentLocation() {
         if (ContextCompat.checkSelfPermission(
                 this,
@@ -202,7 +210,7 @@ class ForeCastDashBoard : AppCompatActivity() {
         for (i in 1 until 5) {
             val forecastItem = forecastList.getJSONObject(i * 8)
             val main = forecastItem.getJSONObject("main")
-            val temperature = main.getDouble("temp")
+            val temperature = String.format("%.2f", main.getDouble("temp") - 272.15).toDouble()
             val weatherArray = forecastItem.getJSONArray("weather")
             val weather = weatherArray.getJSONObject(0).getString("description").toUpperCase(Locale.getDefault())
             val icon = weatherArray.getJSONObject(0).getString("icon")
@@ -237,6 +245,8 @@ class ForeCastDashBoard : AppCompatActivity() {
         }
     }
 
+
+    @SuppressLint("SetTextI18n")
     private fun parseCityForecastData(data: JSONObject) {
         try {
             val forecastList = data.getJSONArray("list")
@@ -244,11 +254,11 @@ class ForeCastDashBoard : AppCompatActivity() {
             // Adjusted to start from the current date when searching for a particular city
             val currentDate = Calendar.getInstance()
 
-            // Assuming here that the user is interested in the next three days' forecast
-            for (i in 0 until 3) {
+            // Assuming here that the user is interested in the next four days' forecast
+            for (i in 0 until 4) {
                 val forecastItem = forecastList.getJSONObject(i * 8)
                 val main = forecastItem.getJSONObject("main")
-                val temperature = main.getDouble("temp")
+                val temperature = String.format("%.2f", main.getDouble("temp") - 272.15).toDouble()
                 val weatherArray = forecastItem.getJSONArray("weather")
                 val weather = weatherArray.getJSONObject(0).getString("description").toUpperCase(Locale.getDefault())
                 val icon = weatherArray.getJSONObject(0).getString("icon")
@@ -274,6 +284,11 @@ class ForeCastDashBoard : AppCompatActivity() {
                         txtDate3.text = "$date: ${temperature}°C"
                         textDescription3.text = weather
                         loadWeatherIcon(icon, imageView3)
+                    }
+                    3 -> {
+                        txtDate4.text = "$date: ${temperature}°C"
+                        textDescription4.text = weather
+                        loadWeatherIcon(icon, imageView4)
                     }
                 }
             }

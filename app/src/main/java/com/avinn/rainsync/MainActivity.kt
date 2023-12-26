@@ -11,8 +11,10 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar()?.hide();
         this.getWindow().setFlags(

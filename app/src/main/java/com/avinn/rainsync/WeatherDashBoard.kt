@@ -57,12 +57,9 @@ class WeatherDashBoard : AppCompatActivity() {
 
         val button: Button = findViewById(R.id.button)
 
-        // Set a click listener for the button
         button.setOnClickListener(View.OnClickListener {
-            // Create an Intent to navigate to ForeCastDashBoard
             val intent = Intent(this@WeatherDashBoard, ForeCastDashBoard::class.java)
 
-            // Start the ForeCastDashBoard activity
             startActivity(intent)
         })
         txtDataAndTime = findViewById(R.id.txt_dataAndTime)
@@ -71,31 +68,25 @@ class WeatherDashBoard : AppCompatActivity() {
         txtDescription = findViewById(R.id.txt_description)
         imgWeatherImg = findViewById(R.id.img_weatherImg)
 
-        // Initialize the additional TextView elements
         txtPressureDetails = findViewById(R.id.txt_pressureDetails)
         txtHumidityDetails = findViewById(R.id.txt_humidityDetails)
         txtTempDetails = findViewById(R.id.txt_TempDetails)
-        txtWeatherDetails = findViewById(R.id.txt_WindSpeedDetails) // Updated ID
+        txtWeatherDetails = findViewById(R.id.txt_WindSpeedDetails)
 
-        // Initialize the FusedLocationProviderClient
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-        // Get the current date and time
         getCurrentDateTime()
 
-        // Get the current location, temperature, weather description, and weather icon for the current location
         getCurrentLocation()
 
-        // Set OnClickListener for the search button
 
 
-        // Add the new code for handling the drawableRight click
         val searchBar = findViewById<EditText>(R.id.search_bar)
         searchBar.setOnTouchListener { _, event ->
-            val DRAWABLE_RIGHT = 2
+            val drawableRight = 2
 
             if (event.action == MotionEvent.ACTION_UP) {
-                if (event.rawX >= (searchBar.right - searchBar.compoundDrawables[DRAWABLE_RIGHT].bounds.width())) {
+                if (event.rawX >= (searchBar.right - searchBar.compoundDrawables[drawableRight].bounds.width())) {
                     // The drawableRight icon was clicked
                     onSearchButtonClick()
                     return@setOnTouchListener true
@@ -106,61 +97,14 @@ class WeatherDashBoard : AppCompatActivity() {
     }
 
     private fun onSearchButtonClick() {
-        // Place the code you want to execute when the search button or drawableRight is clicked
         val cityName = findViewById<EditText>(R.id.search_bar).text.toString()
         if (cityName.isNotEmpty()) {
-            // Call a method to get weather information for the searched city
             getWeatherForCity(cityName)
         } else {
             Toast.makeText(this, "Please enter a city name", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun getCurrentDateTime() {
-        // Get the current date and time using the device's time zone
-        val calendar = Calendar.getInstance()
-        val sdf = SimpleDateFormat("MMMM dd (EEE) | hh:mm a", Locale.getDefault())
-        val formattedDate = sdf.format(calendar.time)
-
-        // Display the formatted date and time
-        txtDataAndTime.text = formattedDate
-    }
-
-    private fun getCurrentLocation() {
-        // Check location permission
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            // Use fusedLocationClient to get the current location
-            fusedLocationClient.lastLocation
-                .addOnSuccessListener { location ->
-                    if (location != null) {
-                        // Get and display the current temperature, weather description, and weather icon
-                        getWeatherData(location.latitude, location.longitude)
-                    } else {
-                        // Handle the case when location is null
-                        txtCountry.text = "Location: Unknown"
-                    }
-                }
-                .addOnFailureListener { e ->
-                    // Handle errors that may occur while getting the location
-                    Toast.makeText(
-                        this,
-                        "Error getting location: ${e.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-        } else {
-            // Request location permission if not granted
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                LOCATION_PERMISSION_REQUEST_CODE
-            )
-        }
-    }
 
     private fun getWeatherData(latitude: Double, longitude: Double) {
         val apiUrl =
@@ -170,7 +114,7 @@ class WeatherDashBoard : AppCompatActivity() {
             { data ->
                 try {
                     val cityName = data.getString("name")
-                    val temperature = data.getJSONObject("main").getDouble("temp")
+                    val temperature = String.format("%.2f", data.getJSONObject("main").getDouble("temp") - 272.15).toDouble()
                     val pressure = data.getJSONObject("main").getDouble("pressure")
                     val humidity = data.getJSONObject("main").getDouble("humidity")
                     val windSpeed = data.getJSONObject("wind").getDouble("speed")
@@ -186,7 +130,6 @@ class WeatherDashBoard : AppCompatActivity() {
                         ""
                     }
 
-                    // Display the location name, temperature, and weather description
                     txtCountry.text = cityName
                     txtCelcius2.text = "${temperature}°C"
                     txtDescription.text = description.toUpperCase()
@@ -197,7 +140,6 @@ class WeatherDashBoard : AppCompatActivity() {
                     txtTempDetails.text = "$temperature°C"
                     txtWeatherDetails.text = "${windSpeed} m/s"
 
-                    // Display the weather icon
                     displayWeatherIcon(iconCode)
                 } catch (e: Exception) {
                     Toast.makeText(
@@ -219,16 +161,15 @@ class WeatherDashBoard : AppCompatActivity() {
         )
         Volley.newRequestQueue(this).add(request)
     }
+
 
     private fun getWeatherForCity(cityName: String) {
         val apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$apiKey"
         val request = JsonObjectRequest(
             Request.Method.GET, apiUrl, null,
             { data ->
-                // Handle the JSON response for the searched city
                 try {
-                    // Extract weather information and update UI
-                    val temperature = data.getJSONObject("main").getDouble("temp")
+                    val temperature = String.format("%.2f", data.getJSONObject("main").getDouble("temp") - 272.15).toDouble()
                     val pressure = data.getJSONObject("main").getDouble("pressure")
                     val humidity = data.getJSONObject("main").getDouble("humidity")
                     val windSpeed = data.getJSONObject("wind").getDouble("speed")
@@ -244,18 +185,15 @@ class WeatherDashBoard : AppCompatActivity() {
                         ""
                     }
 
-                    // Display the location name, temperature, and weather description
                     txtCountry.text = cityName
                     txtCelcius2.text = "${temperature}°C"
                     txtDescription.text = description.toUpperCase()
 
-                    // Display the additional weather details
                     txtPressureDetails.text = "$pressure hPa"
                     txtHumidityDetails.text = "$humidity%"
                     txtTempDetails.text = "$temperature°C"
                     txtWeatherDetails.text = "${windSpeed} m/s"
 
-                    // Display the weather icon
                     displayWeatherIcon(iconCode)
                 } catch (e: Exception) {
                     Toast.makeText(
@@ -278,11 +216,47 @@ class WeatherDashBoard : AppCompatActivity() {
         Volley.newRequestQueue(this).add(request)
     }
 
+    private fun getCurrentDateTime() {
+        val calendar = Calendar.getInstance()
+        val sdf = SimpleDateFormat("MMMM dd (EEE) | hh:mm a", Locale.getDefault())
+        val formattedDate = sdf.format(calendar.time)
+
+        txtDataAndTime.text = formattedDate
+    }
+
+    private fun getCurrentLocation() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location ->
+                    if (location != null) {
+                        getWeatherData(location.latitude, location.longitude)
+                    } else {
+                        txtCountry.text = "Location: Unknown"
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(
+                        this,
+                        "Error getting location: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+        } else {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
+        }
+    }
+
     private fun displayWeatherIcon(iconCode: String) {
-        // Construct the URL for the weather icon
         val iconUrl = "https://openweathermap.org/img/w/$iconCode.png"
 
-        // Use Picasso library to load and display the weather icon
         Picasso.get().load(iconUrl).into(imgWeatherImg)
     }
 }
