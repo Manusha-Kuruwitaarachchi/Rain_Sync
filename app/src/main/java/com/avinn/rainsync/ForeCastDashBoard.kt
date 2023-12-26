@@ -64,6 +64,7 @@ class ForeCastDashBoard : AppCompatActivity() {
         textDescription2 = findViewById(R.id.textDescription2)
         imageView2 = findViewById(R.id.imageView2)
         txtDate3 = findViewById(R.id.textDate3)
+
         textDescription3 = findViewById(R.id.textDescription3)
         imageView3 = findViewById(R.id.imageView3)
         txtDate4 = findViewById(R.id.textDate4)
